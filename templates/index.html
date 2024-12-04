@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista della Spesa</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-light">
+    <div class="container py-5">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h1 class="mb-4 text-center text-primary">La tua Lista della Spesa</h1>
+
+                {% if lista %}
+                <ul class="list-group mb-4">
+                    {% for elemento in lista %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        <span class="fw-bold">{{ elemento.elemento }}</span>
+                        <form action="/rimuovi/{{ elemento.id }}" method="post" class="d-inline">
+                            <button type="submit" class="btn btn-outline-danger btn-sm">Rimuovi</button>
+                        </form>
+                    </li>
+                    {% endfor %}
+                </ul>
+                {% else %}
+                <p class="text-center text-muted">La lista è vuota.</p>
+                {% endif %}
+
+                <form action="/aggiungi" method="post" class="mb-3">
+                    <div class="input-group">
+                        <input type="text" name="elemento" class="form-control" placeholder="Aggiungi un elemento" required>
+                        <button type="submit" class="btn btn-primary">Aggiungi</button>
+                    </div>
+                </form>
+
+                <form action="/svuota_lista" method="post" class="text-center">
+                    <button type="submit" class="btn btn-outline-warning">Svuota Lista</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
